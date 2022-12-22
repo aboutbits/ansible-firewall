@@ -1,0 +1,37 @@
+---
+- name: Install ufw
+  ansible.builtin.apt:
+    name: ufw
+    state: latest
+
+- name: Configure default incoming policy
+  community.general.ufw:
+    direction: incoming
+    default: deny
+
+- name: Configure default outgoing policy
+  community.general.ufw:
+    direction: outgoing
+    default: allow
+
+- name: Configure SSH rule
+  community.general.ufw:
+    rule: limit
+    port: "{{ firewall_ssh_port }}"
+    proto: tcp
+
+- name: Configure ufw rules
+  community.general.ufw:
+    port: "{{ item.port }}"
+    proto: "{{ item.protocol }}"
+    rule: "{{ item.rule }}"
+  loop: "{{ firewall_rules }}"
+
+- name: Restart ufw
+  ansible.builtin.systemd:
+    name: ufw
+    state: restarted
+
+- name: Enable ufw
+  community.general.ufw:
+    state: enabled
