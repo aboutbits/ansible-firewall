@@ -4,7 +4,8 @@ Firewall installation role.
 
 ## Role Variables
 
-- `firewall_ports`: The password that should be set for the default postgres user
+- `firewall_ssh_port`: The SSH port that should allowed
+- `firewall_rules`: A list of additional rules that can be configured
 
 ## Example Playbook
 
