@@ -22,6 +22,10 @@ Firewall installation role.
           - port: 443
             protocol: tcp
             rule: allow
+          - port: 1234
+            protocol: udp
+            from: 10.1.0.0/24
+            rule: allow
 ```
 
 ## Versioning

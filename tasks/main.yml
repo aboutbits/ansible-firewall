@@ -24,6 +24,7 @@
   community.general.ufw:
     port: "{{ item.port }}"
     proto: "{{ item.protocol }}"
+    from_ip: "{{ item['from'] | default('any') }}"
     rule: "{{ item.rule }}"
   loop: "{{ firewall_rules }}"
 
